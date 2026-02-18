@@ -1,0 +1,30 @@
+{
+    "name": "aiten163/progression",
+    "description": "",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Elmir"
+        }
+    ],
+    "require": {
+        "wp-cli/php-cli-tools": "^0.12.7",
+        "ext-mbstring": "*",
+        "ext-pdo": "*",
+        "ext-pdo_sqlite": "*"
+    },
+    "bin": [
+        "bin/progression"
+    ],
+    "autoload": {
+        "files": [
+            "src/Controller.php",
+            "src/View.php",
+            "src/Model.php"
+        ]
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^4.0"
+    }
+}

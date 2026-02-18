@@ -1,0 +1,25 @@
+#!/usr/bin/env php
+<?php
+
+use function aiten163\progression\Controller\startGame;
+
+$autoloadCandidates = [
+        __DIR__ . '/../vendor/autoload.php',
+        __DIR__ . '/../../../autoload.php',
+];
+
+$autoloadFound = false;
+foreach ($autoloadCandidates as $autoloadPath) {
+    if (is_file($autoloadPath)) {
+        require $autoloadPath;
+        $autoloadFound = true;
+        break;
+    }
+}
+
+if (!$autoloadFound) {
+    fwrite(STDERR, "Autoloader not found. Run composer install.\n");
+    exit(1);
+}
+
+startGame($argv);
