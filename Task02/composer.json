@@ -1,0 +1,22 @@
+{
+  "name": "aiten163/progression-web",
+  "description": "Веб-версия игры 'Арифметическая прогрессия'",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Elmir"
+    }
+  ],
+  "require": {
+    "ext-pdo": "*",
+    "ext-pdo_sqlite": "*",
+    "ext-session": "*"
+  },
+  "scripts": {
+    "start": "php -S localhost:3000 -t public"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^4.0"
+  }
+}
