@@ -7,10 +7,14 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 
+require __DIR__ . '/../vendor/autoload.php';
+
+if (!function_exists('Aiten163\Progression\getDbConnection')) {
+    die('Functions not loaded. Run: composer dump-autoload');
+}
+
 use function Aiten163\Progression\getDbConnection;
 use function Aiten163\Progression\generateProgression;
-
-require __DIR__ . '/../vendor/autoload.php';
 
 $app = AppFactory::create();
 $errorMiddleware = $app->addErrorMiddleware(true, true, true);
@@ -156,7 +160,6 @@ $app->post('/games', function (Request $request, Response $response): Response {
             ->withHeader('Content-Type', 'application/json')
             ->withStatus(201);
     } catch (Exception $e) {
-        error_log('Error in POST /games: ' . $e->getMessage());
         $error = json_encode(['error' => $e->getMessage()]);
         $response->getBody()->write($error);
 
@@ -237,7 +240,6 @@ $app->post('/step/{id}', function (Request $request, Response $response, array $
             ->withHeader('Content-Type', 'application/json')
             ->withStatus(200);
     } catch (Exception $e) {
-        error_log('Error in POST /step: ' . $e->getMessage());
         $error = json_encode(['error' => $e->getMessage()]);
         $response->getBody()->write($error);
 

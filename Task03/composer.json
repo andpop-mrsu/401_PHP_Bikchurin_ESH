@@ -16,15 +16,17 @@
     "ext-pdo_sqlite": "*",
     "ext-json": "*"
   },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.7"
+  },
   "autoload": {
-    "psr-4": {
-      "aiten163\\progression\\": "src/"
-    }
+    "files": [
+      "src/Functions.php"
+    ]
   },
   "scripts": {
-    "start": "php -S localhost:3000 -t public"
-  },
-  "require-dev": {
-    "squizlabs/php_codesniffer": "^4.0"
+    "start": "php -S localhost:3000 -t public",
+    "check": "phpcs --standard=PSR12 public/index.php src/",
+    "fix": "phpcbf --standard=PSR12 public/index.php src/"
   }
 }

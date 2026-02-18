@@ -25,7 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setupEventListeners();
 });
 
-function setupEventListeners() {
+function setupEventListeners()
+{
     document.getElementById('start-game-btn').addEventListener('click', startNewGame);
     document.getElementById('show-history-btn').addEventListener('click', showHistory);
 
@@ -52,21 +53,25 @@ function setupEventListeners() {
     });
 }
 
-function showScreen(screenName) {
+function showScreen(screenName)
+{
     Object.values(screens).forEach(screen => screen.classList.remove('active'));
     screens[screenName].classList.add('active');
     App.currentScreen = screenName;
 }
 
-function closeAllModals() {
+function closeAllModals()
+{
     Object.values(modals).forEach(modal => modal.classList.remove('active'));
 }
 
-function showModal(modalName) {
+function showModal(modalName)
+{
     modals[modalName].classList.add('active');
 }
 
-async function apiRequest(endpoint, method = 'GET', data = null) {
+async function apiRequest(endpoint, method = 'GET', data = null)
+{
     const options = {
         method,
         headers: {
@@ -94,7 +99,8 @@ async function apiRequest(endpoint, method = 'GET', data = null) {
     }
 }
 
-async function loadGames() {
+async function loadGames()
+{
     try {
         App.games = await apiRequest('/games');
     } catch (error) {
@@ -102,7 +108,8 @@ async function loadGames() {
     }
 }
 
-async function startNewGame() {
+async function startNewGame()
+{
     const playerName = document.getElementById('player-name').value.trim();
 
     if (!playerName) {
@@ -113,7 +120,6 @@ async function startNewGame() {
     App.playerName = playerName;
 
     try {
-        // Отправляем данные как JSON объект
         const result = await apiRequest('/games', 'POST', { player_name: playerName });
 
         App.currentGame = {
@@ -131,17 +137,17 @@ async function startNewGame() {
         document.getElementById('game-player-name').textContent = playerName;
         showScreen('game');
         showAnswerModal();
-
     } catch (error) {
         console.error('Failed to start game:', error);
         alert('Ошибка при создании игры: ' + error.message);
     }
 }
 
-function showAnswerModal() {
+function showAnswerModal()
+{
     const progressionHtml = App.currentStep.progressionArray.map((value, index) => {
         const isMissing = value === '..';
-        return `<span ${isMissing ? 'class="missing"' : ''}>${value}</span>`;
+        return ` < span ${isMissing ? 'class="missing"' : ''} > ${value} < / span > `;
     }).join(' ');
 
     document.getElementById('current-progression').innerHTML = progressionHtml;
@@ -151,7 +157,8 @@ function showAnswerModal() {
     showModal('answer');
 }
 
-async function submitAnswer() {
+async function submitAnswer()
+{
     const answer = document.getElementById('answer-input').value.trim();
 
     if (!answer) {
@@ -160,7 +167,7 @@ async function submitAnswer() {
     }
 
     try {
-        const result = await apiRequest(`/step/${App.currentGame.id}`, 'POST', {
+        const result = await apiRequest(` / step / ${App.currentGame.id}`, 'POST', {
             step_id: App.currentStep.id,
             answer: answer
         });
@@ -188,18 +195,19 @@ async function submitAnswer() {
         };
 
         showModal('result');
-
     } catch (error) {
         console.error('Failed to submit answer:', error);
     }
 }
 
-function closeResultModal() {
+function closeResultModal()
+{
     closeAllModals();
     showAnswerModal();
 }
 
-async function showHistory() {
+async function showHistory()
+{
     await loadGames();
 
     const historyList = document.getElementById('history-list');
@@ -208,19 +216,19 @@ async function showHistory() {
         historyList.innerHTML = '<p class="text-center">История игр пуста</p>';
     } else {
         let html = `
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Игрок</th>
-                        <th>Дата начала</th>
-                        <th>Статус</th>
-                        <th>Ходов</th>
-                        <th>Правильно</th>
-                        <th>Действия</th>
-                    </tr>
-                </thead>
-                <tbody>
+            < table class = "table" >
+                < thead >
+                    < tr >
+                        < th > ID < / th >
+                        < th > Игрок < / th >
+                        < th > Дата начала < / th >
+                        < th > Статус < / th >
+                        < th > Ходов < / th >
+                        < th > Правильно < / th >
+                        < th > Действия < / th >
+                    <  / tr >
+                <  / thead >
+                < tbody >
         `;
 
         App.games.forEach(game => {
@@ -229,17 +237,17 @@ async function showHistory() {
                 : '<span class="badge badge-success">Завершена</span>';
 
             html += `
-                <tr>
-                    <td>${game.id}</td>
-                    <td>${game.player_name}</td>
-                    <td>${new Date(game.started_at).toLocaleString()}</td>
-                    <td>${statusBadge}</td>
-                    <td>${game.steps_count || 0}</td>
-                    <td>${game.correct_answers || 0}</td>
-                    <td>
-                        <button class="btn btn-small" onclick="showGameDetails(${game.id})">Детали</button>
-                    </td>
-                </tr>
+                < tr >
+                    < td > ${game.id} < / td >
+                    < td > ${game.player_name} < / td >
+                    < td > ${new Date(game.started_at).toLocaleString()} < / td >
+                    < td > ${statusBadge} < / td >
+                    < td > ${game.steps_count || 0} < / td >
+                    < td > ${game.correct_answers || 0} < / td >
+                    < td >
+                        < button class = "btn btn-small" onclick = "showGameDetails(${game.id})" > Детали < / button >
+                    <  / td >
+                <  / tr >
             `;
         });
 
@@ -250,32 +258,33 @@ async function showHistory() {
     showScreen('history');
 }
 
-async function showGameDetails(gameId) {
+async function showGameDetails(gameId)
+{
     try {
-        const game = await apiRequest(`/games/${gameId}`);
+        const game = await apiRequest(` / games / ${gameId}`);
 
         const detailInfo = document.getElementById('game-detail-info');
 
         let html = `
-            <div class="game-card">
-                <h3>Игра #${game.id}</h3>
-                <p><strong>Игрок:</strong> ${game.player_name}</p>
-                <p><strong>Начата:</strong> ${new Date(game.started_at).toLocaleString()}</p>
-                <p><strong>Статус:</strong> ${game.status === 'active' ? 'Активна' : 'Завершена'}</p>
-                
-                <h4 class="mt-4">Ходы игры</h4>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>№</th>
-                            <th>Прогрессия</th>
-                            <th>Скрытое число</th>
-                            <th>Ответ</th>
-                            <th>Результат</th>
-                            <th>Время</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+            < div class = "game-card" >
+                < h3 > Игра #${game.id} < / h3 >
+                < p > < strong > Игрок: < / strong > ${game.player_name} < / p >
+                < p > < strong > Начата: < / strong > ${new Date(game.started_at).toLocaleString()} < / p >
+                < p > < strong > Статус: < / strong > ${game.status === 'active' ? 'Активна' : 'Завершена'} < / p >
+
+                < h4 class = "mt-4" > Ходы игры < / h4 >
+                < table class = "table" >
+                    < thead >
+                        < tr >
+                            < th > № < / th >
+                            < th > Прогрессия < / th >
+                            < th > Скрытое число < / th >
+                            < th > Ответ < / th >
+                            < th > Результат < / th >
+                            < th > Время < / th >
+                        <  / tr >
+                    <  / thead >
+                    < tbody >
         `;
 
         game.steps.forEach((step, index) => {
@@ -286,14 +295,14 @@ async function showGameDetails(gameId) {
                     : '<span class="badge badge-danger">✗</span>';
 
             html += `
-                <tr>
-                    <td>${index + 1}</td>
-                    <td>${step.progression}</td>
-                    <td>${step.hidden_value}</td>
-                    <td>${step.player_answer || '-'}</td>
-                    <td>${resultBadge}</td>
-                    <td>${new Date(step.created_at).toLocaleTimeString()}</td>
-                </tr>
+                < tr >
+                    < td > ${index + 1} < / td >
+                    < td > ${step.progression} < / td >
+                    < td > ${step.hidden_value} < / td >
+                    < td > ${step.player_answer || '-'} < / td >
+                    < td > ${resultBadge} < / td >
+                    < td > ${new Date(step.created_at).toLocaleTimeString()} < / td >
+                <  / tr >
             `;
         });
 
@@ -301,7 +310,6 @@ async function showGameDetails(gameId) {
 
         detailInfo.innerHTML = html;
         showScreen('gameDetail');
-
     } catch (error) {
         console.error('Failed to load game details:', error);
     }

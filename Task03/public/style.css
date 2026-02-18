@@ -218,7 +218,6 @@ body {
     color: #212529;
 }
 
-/* Модальные окна */
 .modal {
     display: none;
     position: fixed;
