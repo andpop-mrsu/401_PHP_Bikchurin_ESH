@@ -1,0 +1,30 @@
+{
+  "name": "aiten163/progression-api",
+  "description": "REST API для игры 'Арифметическая прогрессия' на Slim фреймворке",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Elmir"
+    }
+  ],
+  "require": {
+    "php": ">=7.4",
+    "slim/slim": "4.*",
+    "slim/psr7": "^1.5",
+    "ext-pdo": "*",
+    "ext-pdo_sqlite": "*",
+    "ext-json": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "aiten163\\progression\\": "src/"
+    }
+  },
+  "scripts": {
+    "start": "php -S localhost:3000 -t public"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^4.0"
+  }
+}

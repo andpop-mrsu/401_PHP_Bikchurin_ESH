@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Арифметическая прогрессия - SPA</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <h1>🔢 Арифметическая прогрессия</h1>
+        <p>Найди пропущенное число в последовательности</p>
+    </header>
+
+    <main class="content">
+        <div id="welcome-screen" class="screen active">
+            <div class="game-card">
+                <h2>Добро пожаловать в игру!</h2>
+                <p>Введите ваше имя, чтобы начать:</p>
+
+                <div class="form-group">
+                    <input type="text" id="player-name" class="form-control" placeholder="Ваше имя" autofocus>
+                </div>
+
+                <div class="button-group">
+                    <button id="start-game-btn" class="btn">Начать игру</button>
+                    <button id="show-history-btn" class="btn btn-secondary">История игр</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="game-screen" class="screen">
+            <div class="game-header">
+                <h2>Игра</h2>
+                <p>Игрок: <span id="game-player-name"></span></p>
+            </div>
+
+            <div id="game-area">
+            </div>
+
+            <div id="game-stats" class="stats">
+            </div>
+
+            <div class="button-group">
+                <button id="new-game-btn" class="btn">Новая игра</button>
+                <button id="back-to-menu-btn" class="btn btn-secondary">В меню</button>
+            </div>
+        </div>
+
+        <div id="history-screen" class="screen">
+            <h2>История игр</h2>
+
+            <div id="history-list">
+            </div>
+
+            <div class="button-group">
+                <button id="back-from-history-btn" class="btn">В меню</button>
+            </div>
+        </div>
+
+        <div id="game-detail-screen" class="screen">
+            <h2>Детали игры</h2>
+
+            <div id="game-detail-info">
+            </div>
+
+            <div class="button-group">
+                <button id="back-to-history-btn" class="btn">Назад к истории</button>
+            </div>
+        </div>
+
+        <div id="answer-modal" class="modal">
+            <div class="modal-content">
+                <h3>Ваш ответ</h3>
+                <div id="current-progression" class="progression"></div>
+                <input type="number" id="answer-input" class="form-control" placeholder="Введите число" autofocus>
+                <div class="button-group">
+                    <button id="submit-answer-btn" class="btn">Ответить</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="result-modal" class="modal">
+            <div class="modal-content">
+                <h3 id="result-title"></h3>
+                <p id="result-message"></p>
+                <div class="button-group">
+                    <button id="close-result-btn" class="btn">Продолжить</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
